@@ -156,7 +156,7 @@ public class Duke extends Application {
                     printMessage("Nice! I've marked this task as done:");
                     num -= 1;
                     list.get(num).markAsDone();
-                    printMessage("  [" + "\u2713" + "] ");
+                    printMessage("  " + list.get(num).toString());
                 } catch (NumberFormatException e) {
                     list.add(new Task(str));
                     printMessage("added: "+ str);
@@ -172,6 +172,7 @@ public class Duke extends Application {
         printLinebreak();
         printMessage("Bye. Hope to see you again soon!");
         printLinebreak();
+        return;
     }
 
     private static void printGreeting() {
@@ -187,8 +188,9 @@ public class Duke extends Application {
     }
 
     private static void printList(ArrayList<Task> list) {
+        System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
-            System.out.println((i+1) + ".[" + list.get(i).getStatusIcon() + "] " + list.get(i).description);
+            System.out.println("     " + (i+1) + "." + list.get(i).toString());
         }
     }
 
