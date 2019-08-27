@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 import java.util.ArrayList;
+import java.util.regex.PatternSyntaxException;
 /*
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -49,7 +50,13 @@ public class Duke {//extends Application {
         String str = DukePrint.getInput(in);
         while (!str.equals("bye")) {
             DukePrint.printLinebreak();
-            myDuke.runCmd(str);
+            try {
+                myDuke.runCmd(str);
+            }
+            catch (DukeException e){
+                System.out.println(e);
+            }
+
             DukePrint.printLinebreak();
             str = DukePrint.getInput(in);
         }
@@ -61,18 +68,23 @@ public class Duke {//extends Application {
 
 
 
-    private void runCmd(String op) {
+    private void runCmd(String op) throws DukeException {
         if (op.equals("list")) {
             DukePrint.printList(this.list);
             return;
         }
-        int i = op.indexOf(' ');
-        String opType = op;
-        if (i > -1 && op.length() > i + 1) {
-            opType = op.substring(0, i);
-
-            op = op.substring(i + 1);
+        String opType;
+        if (op.equals("todo") || op.equals("event") || op.equals("deadline")) {
+            throw new DukeException("☹ OOPS!!! The description of a " + op + " cannot be empty.");
         }
+        else if (op.indexOf(" ") > -1){
+            opType = op.split(" ", 2)[1];
+            op = op.split(" ",2)[0];
+        } else {
+            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+
+        int i;
         if (opType.equals("todo")) {
 
             Task t = new ToDo(op);
@@ -107,8 +119,11 @@ public class Duke {//extends Application {
                 list.add(new Task(op));
                 DukePrint.printMessage("added: "+ op);
             }
+        } else {
+            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-        
+
+
     }
 
 
