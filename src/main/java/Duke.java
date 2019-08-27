@@ -78,12 +78,11 @@ public class Duke {//extends Application {
             throw new DukeException("☹ OOPS!!! The description of a " + op + " cannot be empty.");
         }
         else if (op.indexOf(" ") > -1){
-            opType = op.split(" ", 2)[1];
-            op = op.split(" ",2)[0];
+            opType = op.split(" ", 2)[0];
+            op = op.split(" ",2)[1];
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-
         int i;
         if (opType.equals("todo")) {
 
