@@ -45,6 +45,12 @@ public class Duke {//extends Application {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
+
+        ArrayList<Task> oldlist = DukePrint.loadData();
+        if (oldlist != null) {
+            myDuke.list = oldlist;
+        }
+
         System.out.println("Hello from\n" + logo);
         DukePrint.printGreeting();
         String str = DukePrint.getInput(in);
@@ -56,7 +62,7 @@ public class Duke {//extends Application {
             catch (DukeException e){
                 System.out.println(e);
             }
-
+            DukePrint.saveData(myDuke.list);
             DukePrint.printLinebreak();
             str = DukePrint.getInput(in);
         }

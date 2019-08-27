@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -36,4 +37,37 @@ public class DukePrint {
         printMessage("What can I do for you?");
         printLinebreak();
     }
+    public static void saveData(ArrayList<Task> list){
+        new File("../../../data").mkdirs();
+        try {
+            FileOutputStream fos = new FileOutputStream("../../../data/duke.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(list);
+            oos.close();
+        } catch (FileNotFoundException e) {
+
+        } catch (IOException e) {
+
+        }
+
+    }
+
+    public static ArrayList<Task> loadData(){
+        new File("../../../data").mkdirs();
+        try {
+            FileInputStream fis = new FileInputStream("../../../data/duke.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            ArrayList<Task> list = (ArrayList<Task>) ois.readObject();
+            ois.close();
+            return list;
+        } catch (FileNotFoundException e) {
+
+        } catch (IOException e) {
+
+        } catch (ClassNotFoundException e) {
+
+        }
+        return null;
+    }
+
 }
