@@ -1,4 +1,13 @@
-package PACKAGE_NAME;
+public class ToDo extends Task {
 
-public class ToDo {
+    protected String at;
+
+    public ToDo(String description) {
+        super(description);
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
 }
