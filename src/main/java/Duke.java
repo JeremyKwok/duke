@@ -28,6 +28,8 @@ public class Duke {//extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
+*/
+    private ArrayList<Task> list;
 
     public Duke() {
         this.list = new ArrayList<Task>();
@@ -36,73 +38,86 @@ public class Duke {//extends Application {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        ArrayList<Task> list = new ArrayList<>();
+        Duke myDuke = new Duke();
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        printGreeting();
-        String str = getInput(in);
+        DukePrint.printGreeting();
+        String str = DukePrint.getInput(in);
         while (!str.equals("bye")) {
-            printLinebreak();
-            String upToFiveCharacters = str.substring(0, Math.min(str.length(), 5));
-            if (str.equals("list")) {
-                printList(list);
-            } else if (upToFiveCharacters.equals("done ")) {
-                String remaining = str.substring(5, str.length());
-                try {
-                    int num = Integer.parseInt(remaining);
-                    printMessage("Nice! I've marked this task as done:");
-                    num -= 1;
-                    list.get(num).markAsDone();
-                    printMessage("  " + list.get(num).toString());
-                } catch (NumberFormatException e) {
-                    list.add(new Task(str));
-                    printMessage("added: "+ str);
-                }
-            } else {
-                list.add(new Task(str));
-                printMessage("added: "+ str);
-            }
-
-            printLinebreak();
-            str = getInput(in);
+            DukePrint.printLinebreak();
+            myDuke.runCmd(str);
+            DukePrint.printLinebreak();
+            str = DukePrint.getInput(in);
         }
-        printLinebreak();
-        printMessage("Bye. Hope to see you again soon!");
-        printLinebreak();
+        DukePrint.printLinebreak();
+        DukePrint.printMessage("Bye. Hope to see you again soon!");
+        DukePrint.printLinebreak();
         return;
     }
 
-    private static void printGreeting() {
-        printLinebreak();
-        printMessage("Hello! I'm Duke");
-        printMessage("What can I do for you?");
-        printLinebreak();
-    }
 
-    private static String getInput(Scanner in) {
-        System.out.println();
-        return in.nextLine();
-    }
 
-    private static void printList(ArrayList<Task> list) {
-        System.out.println("     Here are the tasks in your list:");
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println("     " + (i+1) + "." + list.get(i).toString());
+    private void runCmd(String op) {
+        if (op.equals("list")) {
+            DukePrint.printList(this.list);
+            return;
         }
+        int i = op.indexOf(' ');
+        String opType = op;
+        if (i > -1 && op.length() > i + 1) {
+            opType = op.substring(0, i);
+
+            op = op.substring(i + 1);
+        }
+        if (opType.equals("todo")) {
+
+            Task t = new ToDo(op);
+            this.list.add(t);
+            DukePrint.printLast(this.list);
+        } else if (opType.equals("deadline")) {
+            i = op.indexOf(" /by ");
+            String opTime = "NULL";
+            if (i > -1) {
+                opTime = op.substring(i+5);
+                op = op.substring(0, i);
+            }
+            list.add(new Deadline(op, opTime));
+            DukePrint.printLast(list);
+        } else if (opType.equals("event")) {
+            i = op.indexOf(" /at ");
+            String opTime = "NULL";
+            if (i > -1) {
+                opTime = op.substring(i+5);
+                op = op.substring(0, i);
+            }
+            list.add(new Event(op, opTime));
+            DukePrint.printLast(list);
+        } else if (opType.equals("done")) {
+            try {
+                int num = Integer.parseInt(op);
+                DukePrint.printMessage("Nice! I've marked this task as done:");
+                num -= 1;
+                list.get(num).markAsDone();
+                DukePrint.printMessage("  " + list.get(num).toString());
+            } catch (NumberFormatException e) {
+                list.add(new Task(op));
+                DukePrint.printMessage("added: "+ op);
+            }
+        }
+        
     }
 
-    private static void printLinebreak() {
-        String linebreak = "    ____________________________________________________________";
-        System.out.println(linebreak);
-    }
 
-    private static void printMessage(String str) {
-        System.out.println("     " + str);
-    }
+
+
+
+
+
+
 
 
 }
