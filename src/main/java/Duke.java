@@ -56,10 +56,10 @@ public class Duke {//extends Application {
 
 
         System.out.println("Hello from\n" + logo);
-        DukePrint.printGreeting();
-        String str = DukePrint.getInput(in);
+        Ui.printGreeting();
+        String str = Ui.getInput(in);
         while (!str.equals("bye")) {
-            DukePrint.printLinebreak();
+            Ui.printLinebreak();
             try {
                 myDuke.runCmd(str);
                 DukePrint.saveData(myDuke.list);
@@ -67,12 +67,12 @@ public class Duke {//extends Application {
             catch (DukeException e){
                 System.out.println(e);
             }
-            DukePrint.printLinebreak();
-            str = DukePrint.getInput(in);
+            Ui.printLinebreak();
+            str = Ui.getInput(in);
         }
-        DukePrint.printLinebreak();
-        DukePrint.printMessage("Bye. Hope to see you again soon!");
-        DukePrint.printLinebreak();
+        Ui.printLinebreak();
+        Ui.printMessage("Bye. Hope to see you again soon!");
+        Ui.printLinebreak();
         return;
     }
 
@@ -80,7 +80,7 @@ public class Duke {//extends Application {
 
     private void runCmd(String op) throws DukeException {
         if (op.equals("list")) {
-            DukePrint.printList(this.list);
+            Ui.printList(this.list);
             return;
         }
         String opType;
@@ -99,7 +99,7 @@ public class Duke {//extends Application {
 
             Task t = new ToDo(op);
             this.list.add(t);
-            DukePrint.printLast(this.list);
+            Ui.printLast(this.list);
         } else if (opType.equals("deadline")) {
             i = op.indexOf(" /by ");
             String opTime = "NULL";
@@ -108,7 +108,7 @@ public class Duke {//extends Application {
                 op = op.substring(0, i);
             }
             list.add(new Deadline(op, opTime));
-            DukePrint.printLast(list);
+            Ui.printLast(list);
         } else if (opType.equals("event")) {
             i = op.indexOf(" /at ");
             String opTime = "NULL";
@@ -118,17 +118,17 @@ public class Duke {//extends Application {
             }
 
             list.add(new Event(op, opTime));
-            DukePrint.printLast(list);
+            Ui.printLast(list);
         } else if (opType.equals("done")) {
             try {
                 int num = Integer.parseInt(op);
-                DukePrint.printMessage("Nice! I've marked this task as done:");
+                Ui.printMessage("Nice! I've marked this task as done:");
                 num -= 1;
                 list.get(num).markAsDone();
-                DukePrint.printMessage("  " + list.get(num).toString());
+                Ui.printMessage("  " + list.get(num).toString());
             } catch (NumberFormatException e) {
                 list.add(new Task(op));
-                DukePrint.printMessage("added: "+ op);
+                Ui.printMessage("added: "+ op);
             }
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
