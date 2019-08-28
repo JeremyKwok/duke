@@ -5,7 +5,7 @@ public class DukeDate {
     private String year;
     private String time;
 
-    private String outputDate () {
+    public String outputDate () {
         return day + " of " + month + " " + year + ", " + time;
     }
 
@@ -16,7 +16,7 @@ public class DukeDate {
         this.time = time;
     }
 
-    public static String formatDate (String myDate) {
+    public static DukeDate formatDate (String myDate) {
 
         String[] dParts = {};
         String time="", dt="";
@@ -24,12 +24,12 @@ public class DukeDate {
             time = myDate.split(" ")[1];
             dt = myDate.split(" ")[0];
         } else {
-            return myDate;
+            return null;
         }
         if (dt.indexOf("/") > -1){
             dParts = dt.split("/");
         } else {
-            return myDate;
+            return null;
         }
 
         if (validateDate(dParts, time)) {
@@ -37,10 +37,10 @@ public class DukeDate {
             dParts[1] = convertMonth(dParts[1]);
             time = convertTime(time);
         } else {
-            return myDate;
+            return null;
         }
 
-        return dParts[0] + " of " + dParts[1] + " " + dParts[2] + ", " + time;
+        return new DukeDate(dParts[0], dParts[1], dParts[2], time);
     }
 
     public static boolean validateDate(String[] dParts, String time) {
