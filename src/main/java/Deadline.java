@@ -2,7 +2,7 @@ public class Deadline extends Task {
 
     protected DukeDate by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DukeException {
         super(description);
         this.by = DukeDate.formatDate(by);
     }

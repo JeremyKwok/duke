@@ -45,11 +45,15 @@ public class Duke {//extends Application {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-
-        ArrayList<Task> oldlist = DukePrint.loadData();
-        if (oldlist != null) {
-            myDuke.list = oldlist;
+        try {
+            ArrayList<Task> oldlist = DukePrint.loadData();
+            if (oldlist != null) {
+                myDuke.list = oldlist;
+            }
+        } catch (DukeException e) {
+            System.out.println(e);
         }
+
 
         System.out.println("Hello from\n" + logo);
         DukePrint.printGreeting();
@@ -58,11 +62,11 @@ public class Duke {//extends Application {
             DukePrint.printLinebreak();
             try {
                 myDuke.runCmd(str);
+                DukePrint.saveData(myDuke.list);
             }
             catch (DukeException e){
                 System.out.println(e);
             }
-            DukePrint.saveData(myDuke.list);
             DukePrint.printLinebreak();
             str = DukePrint.getInput(in);
         }
@@ -87,7 +91,8 @@ public class Duke {//extends Application {
             opType = op.split(" ", 2)[0];
             op = op.split(" ",2)[1];
         } else {
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means."
+            + "Please enter a command and description :-(");
         }
         int i;
         if (opType.equals("todo")) {
@@ -111,6 +116,7 @@ public class Duke {//extends Application {
                 opTime = op.substring(i+5);
                 op = op.substring(0, i);
             }
+
             list.add(new Event(op, opTime));
             DukePrint.printLast(list);
         } else if (opType.equals("done")) {

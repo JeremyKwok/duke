@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class DukeDate {
+public class DukeDate implements Serializable {
     private String day;
     private String month;
     private String year;
@@ -16,7 +17,7 @@ public class DukeDate {
         this.time = time;
     }
 
-    public static DukeDate formatDate (String myDate) {
+    public static DukeDate formatDate (String myDate) throws DukeException {
 
         String[] dParts = {};
         String time="", dt="";
@@ -24,12 +25,12 @@ public class DukeDate {
             time = myDate.split(" ")[1];
             dt = myDate.split(" ")[0];
         } else {
-            return null;
+            throw new DukeException("☹ OOPS!!! The date is in an invalid format");
         }
         if (dt.indexOf("/") > -1){
             dParts = dt.split("/");
         } else {
-            return null;
+            throw new DukeException("☹ OOPS!!! The date is in an invalid format");
         }
 
         if (validateDate(dParts, time)) {
@@ -37,7 +38,7 @@ public class DukeDate {
             dParts[1] = convertMonth(dParts[1]);
             time = convertTime(time);
         } else {
-            return null;
+            throw new DukeException("☹ OOPS!!! The date is in an invalid format");
         }
 
         return new DukeDate(dParts[0], dParts[1], dParts[2], time);
