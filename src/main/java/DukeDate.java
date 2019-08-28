@@ -36,7 +36,7 @@ public class DukeDate implements Serializable {
         if (validateDate(dParts, time)) {
             dParts[0] = convertDay(dParts[0]);
             dParts[1] = convertMonth(dParts[1]);
-            time = convertTime(time);
+            time = getTime(time);
         } else {
             throw new DukeException("☹ OOPS!!! The date is in an invalid format");
         }
@@ -45,11 +45,25 @@ public class DukeDate implements Serializable {
     }
 
     public static boolean validateDate(String[] dParts, String time) {
-
-        int timeValue = Integer.parseInt(time);
-        if (timeValue % 100 > 60 || timeValue < 0 || timeValue > 2360) {
-            return false;
+        String time2;
+        int timeValue, time2Value;
+        if (time.indexOf("-") > -1) {
+           time2 = time.split("-",2)[1];
+           time = time.split("-", 2) [0];
+           timeValue = Integer.parseInt(time);
+           time2Value = Integer.parseInt(time2);
+            if (timeValue % 100 > 60 || timeValue < 0 || timeValue > 2360) {
+                return false;
+            } else if (time2Value % 100 > 60 || time2Value < 0 || time2Value > 2360) {
+                return false;
+            }
+        }else {
+            timeValue = Integer.parseInt(time);
+            if (timeValue % 100 > 60 || timeValue < 0 || timeValue > 2360) {
+                return false;
+            }
         }
+
 
         if (dParts.length != 3) {
             return false;
@@ -71,7 +85,22 @@ public class DukeDate implements Serializable {
         return true;
     }
 
+    public static String getTime (String time) {
+        String time2 = "";
+        int timeValue, time2Value;
+        if (time.indexOf("-") > -1) {
+            time2 = time.split("-",2)[1];
+            time = time.split("-", 2) [0];
+            time = convertTime(time);
+            time2 = convertTime(time2);
+            return time + " - " + time2;
+        }
+        time = convertTime(time);
+        return time;
+    }
+
     public static String convertTime(String s) {
+
         int timeValue = Integer.parseInt(s);
         if (timeValue < 1200) {
             //am case
