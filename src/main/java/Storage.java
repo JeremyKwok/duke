@@ -3,10 +3,16 @@ import java.util.ArrayList;
 
 public class Storage {
 
-    public static void saveData(ArrayList<Task> list) throws DukeException {
-        new File("../../../data").mkdirs();
+    private String filePath;
+
+    public Storage (String filePath) {
+        this.filePath = filePath;
+    }
+
+    public void saveData(ArrayList<Task> list) throws DukeException {
+        new File(filePath).mkdirs();
         try {
-            FileOutputStream fos = new FileOutputStream("../../../data/duke.txt");
+            FileOutputStream fos = new FileOutputStream(filePath + "/duke.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(list);
             oos.close();
@@ -19,10 +25,10 @@ public class Storage {
 
     }
 
-    public static ArrayList<Task> loadData() throws DukeException {
-        new File("../../../data").mkdirs();
+    public ArrayList<Task> loadData() throws DukeException {
+        new File(filePath).mkdirs();
         try {
-            FileInputStream fis = new FileInputStream("../../../data/duke.txt");
+            FileInputStream fis = new FileInputStream(filePath + "/duke.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
             ArrayList<Task> list = (ArrayList<Task>) ois.readObject();
             ois.close();

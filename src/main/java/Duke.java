@@ -31,119 +31,38 @@ public class Duke {//extends Application {
     private Scene scene;
 */
     private ArrayList<Task> list;
+    private Storage storage;
+    private Ui ui;
 
-    public Duke() {
-        this.list = new ArrayList<Task>();
-    }
-
-
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        Duke myDuke = new Duke();
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+    public Duke(String filePath) {
         try {
-            ArrayList<Task> oldlist = Storage.loadData();
-            if (oldlist != null) {
-                myDuke.list = oldlist;
-            }
+            ui = new Ui();
+            storage = new Storage(filePath);
+            list = storage.loadData();
         } catch (DukeException e) {
-            System.out.println(e);
+            ui.showLoadingError();
+            list = new ArrayList<Task>();
         }
+    }
 
-
-        System.out.println("Hello from\n" + logo);
-        Ui.printGreeting();
-        String str = Ui.getInput(in);
-        while (!str.equals("bye")) {
-            Ui.printLinebreak();
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                myDuke.runCmd(str);
-                Storage.saveData(myDuke.list);
-            }
-            catch (DukeException e){
+                String fullCommand = ui.readCommand();
+                ui.showLine();
+                Command myCmd = Parser.parse(fullCommand);
+                myCmd.execute(list, ui, storage);
+                isExit = myCmd.isExit();
+            } catch (DukeException e) {
                 System.out.println(e);
+            } finally {
+                ui.showLine();
             }
-            Ui.printLinebreak();
-            str = Ui.getInput(in);
         }
-        Ui.printLinebreak();
-        Ui.printMessage("Bye. Hope to see you again soon!");
-        Ui.printLinebreak();
-        return;
     }
-
-
-
-    private void runCmd(String op) throws DukeException {
-        if (op.equals("list")) {
-            Ui.printList(this.list);
-            return;
-        }
-        String opType;
-        if (op.equals("todo") || op.equals("event") || op.equals("deadline")) {
-            throw new DukeException("☹ OOPS!!! The description of a " + op + " cannot be empty.");
-        }
-        else if (op.indexOf(" ") > -1){
-            opType = op.split(" ", 2)[0];
-            op = op.split(" ",2)[1];
-        } else {
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means."
-            + "Please enter a command and description :-(");
-        }
-        int i;
-        if (opType.equals("todo")) {
-
-            Task t = new ToDo(op);
-            this.list.add(t);
-            Ui.printLast(this.list);
-        } else if (opType.equals("deadline")) {
-            i = op.indexOf(" /by ");
-            String opTime = "NULL";
-            if (i > -1) {
-                opTime = op.substring(i+5);
-                op = op.substring(0, i);
-            }
-            list.add(new Deadline(op, opTime));
-            Ui.printLast(list);
-        } else if (opType.equals("event")) {
-            i = op.indexOf(" /at ");
-            String opTime = "NULL";
-            if (i > -1) {
-                opTime = op.substring(i+5);
-                op = op.substring(0, i);
-            }
-
-            list.add(new Event(op, opTime));
-            Ui.printLast(list);
-        } else if (opType.equals("done")) {
-            try {
-                int num = Integer.parseInt(op);
-                Ui.printMessage("Nice! I've marked this task as done:");
-                num -= 1;
-                list.get(num).markAsDone();
-                Ui.printMessage("  " + list.get(num).toString());
-            } catch (NumberFormatException e) {
-                list.add(new Task(op));
-                Ui.printMessage("added: "+ op);
-            }
-        } else {
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-        }
-
-
+    public static void main(String[] args) {
+        new Duke("../../../data").run();
     }
-
-
-
-
-
-
-
-
-
-
 }

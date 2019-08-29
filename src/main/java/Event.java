@@ -2,9 +2,9 @@ public class Event extends Task {
 
     protected DukeDate at;
 
-    public Event(String description, String at) throws DukeException {
+    public Event(String description, DukeDate at) throws DukeException {
         super(description);
-        this.at = DukeDate.formatDate(at);
+        this.at = at;
     }
 
     @Override
