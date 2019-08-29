@@ -9,6 +9,10 @@ public class Ui {
         in = new Scanner(System.in);
     }
 
+    public void showTaskListSize(ArrayList<Task> list) {
+        printMessage("Now you have " + Integer.toString(list.size()) + " tasks in the list.");
+    }
+
     public void showLoadingError() {
         System.out.println("There was an error loading the old tasks. Creating a new Tasklist.");
     }
