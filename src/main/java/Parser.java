@@ -15,19 +15,24 @@ public class Parser {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means."
                     + "Please enter a command and description :-(");
         }
-
-        if (!c[0].equals("todo") && !c[0].equals("deadline") && !c[0].equals("event") && !c[0].equals("done")) {
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means."
-                    + "Please enter a command and description :-(");
-        }
         if (c[0].equals("done")) {
             if (isNumeric(c[1])) {
                 return new DoneCommand(c);
             } else {
                 throw new DukeException("☹ OOPS!!! I'm sorry, but the task must be specified with a number.");
             }
-
-        } else if (c[0].equals("todo")) {
+        } else if (c[0].equals("delete")) {
+            if (isNumeric(c[1])) {
+                return new DeleteCommand(c);
+            } else {
+                throw new DukeException("☹ OOPS!!! I'm sorry, but the task must be specified with a number.");
+            }
+        }
+        if (!c[0].equals("todo") && !c[0].equals("deadline") && !c[0].equals("event")) {
+            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means."
+                    + "Please enter a command and description :-(");
+        }
+        if (c[0].equals("todo")) {
             return new AddCommand(c);
         } else if (c[0].equals("deadline") && c[1].indexOf(" /by ") > -1) {
             c[2] = c[1].split(" /by ", 2)[1];
