@@ -1,9 +1,10 @@
 public class Parser {
     public static Command parse(String fullCommand) throws DukeException {
         String[] c = new String[6];
+        fullCommand = fullCommand.strip();
         if (fullCommand.indexOf(" ") > -1) {
             c[0] = fullCommand.split(" ", 2)[0];
-            c[1] = fullCommand.split(" ", 2)[1];
+            c[1] = fullCommand.split(" ", 2)[1].strip();
         } else if (fullCommand.equals("list")) {
             return new ListCommand();
         } else if (fullCommand.equals("bye")) {
@@ -38,11 +39,11 @@ public class Parser {
         if (c[0].equals("todo")) {
             return new AddCommand(c);
         } else if (c[0].equals("deadline") && c[1].indexOf(" /by ") > -1) {
-            c[2] = c[1].split(" /by ", 2)[1];
-            c[1] = c[1].split(" /by ", 2)[0];
+            c[2] = c[1].split(" /by ", 2)[1].strip();
+            c[1] = c[1].split(" /by ", 2)[0].strip();
         } else if (c[0].equals("event") && c[1].indexOf(" /at ") > -1) {
-            c[2] = c[1].split(" /at ", 2)[1];
-            c[1] = c[1].split(" /at ", 2)[0];
+            c[2] = c[1].split(" /at ", 2)[1].strip();
+            c[1] = c[1].split(" /at ", 2)[0].strip();
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means."
                     + "Please enter a command and description :-(");
@@ -53,8 +54,8 @@ public class Parser {
         String[] dParts = {};
         String time = "", dt = "";
         if (c[2].indexOf(" ") > -1) {
-            time = c[2].split(" ", 2)[1];
-            dt = c[2].split(" ", 2)[0];
+            time = c[2].split(" ", 2)[1].strip();
+            dt = c[2].split(" ", 2)[0].strip();
         } else {
             throw new DukeException("☹ OOPS!!! The date is in an invalid format");
         }
