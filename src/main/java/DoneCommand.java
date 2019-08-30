@@ -8,13 +8,16 @@ public class DoneCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         try {
             int num = Integer.parseInt(c[1]);
             ui.printMessage("Nice! I've marked this task as done:");
             num -= 1;
-            list.get(num).markAsDone();
-            ui.printMessage("  " + list.get(num).toString());
+            if (num < 0 || num >= list.getSize()) {
+                throw new DukeException("The specified index is not avaliable.");
+            }
+            list.at(num).markAsDone();
+            ui.printMessage("  " + list.at(num).toString());
             ui.showTaskListSize(list);
             storage.saveData(list);
         } catch (NumberFormatException e) {

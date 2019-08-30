@@ -9,8 +9,8 @@ public class Ui {
         in = new Scanner(System.in);
     }
 
-    public void showTaskListSize(ArrayList<Task> list) {
-        printMessage("Now you have " + Integer.toString(list.size()) + " tasks in the list.");
+    public void showTaskListSize(TaskList list) {
+        printMessage("Now you have " + Integer.toString(list.getSize()) + " tasks in the list.");
     }
 
     public void showLoadingError() {
@@ -22,17 +22,17 @@ public class Ui {
         System.out.println(linebreak);
     }
 
-    public void printList(ArrayList<Task> list) {
+    public void printList(TaskList list) {
         System.out.println("     Here are the tasks in your list:");
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println("     " + (i+1) + "." + list.get(i).toString());
+        for (int i = 0; i < list.getSize(); i++) {
+            System.out.println("     " + (i+1) + "." + list.at(i).toString());
         }
     }
 
-    public static void printLast(ArrayList<Task> list) {
+    public static void printLast(TaskList list) {
         printMessage("Got it. I've added this task:");
-        int n = list.size();
-        printMessage(" " + list.get(n-1).toString());
+        int n = list.getSize();
+        printMessage(" " + list.at(n-1).toString());
         printMessage("Now you have " + Integer.toString(n) + " tasks in the list.");
     }
 

@@ -9,7 +9,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public void saveData(ArrayList<Task> list) throws DukeException {
+    public void saveData(TaskList list) throws DukeException {
         new File(filePath).mkdirs();
         try {
             FileOutputStream fos = new FileOutputStream(filePath + "/duke.txt");
@@ -25,12 +25,12 @@ public class Storage {
 
     }
 
-    public ArrayList<Task> loadData() throws DukeException {
+    public TaskList loadData() throws DukeException {
         new File(filePath).mkdirs();
         try {
             FileInputStream fis = new FileInputStream(filePath + "/duke.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
-            ArrayList<Task> list = (ArrayList<Task>) ois.readObject();
+            TaskList list = (TaskList) ois.readObject();
             ois.close();
             return list;
         } catch (FileNotFoundException e) {

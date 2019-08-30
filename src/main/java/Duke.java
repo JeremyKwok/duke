@@ -30,7 +30,7 @@ public class Duke {//extends Application {
     private Button sendButton;
     private Scene scene;
 */
-    private ArrayList<Task> list;
+    private TaskList list;
     private Storage storage;
     private Ui ui;
 
@@ -41,7 +41,7 @@ public class Duke {//extends Application {
             list = storage.loadData();
         } catch (DukeException e) {
             ui.showLoadingError();
-            list = new ArrayList<Task>();
+            list = new TaskList();
         }
     }
 

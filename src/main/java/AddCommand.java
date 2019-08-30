@@ -8,16 +8,16 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         switch(c[0]) {
             case "todo":
-                list.add(new ToDo(c[1]));
+                list.addTask(new ToDo(c[1]));
                 break;
             case "event":
-                list.add(new Event(c[1], new DukeDate(c[2], c[3], c[4], c[5])));
+                list.addTask(new Event(c[1], new DukeDate(c[2], c[3], c[4], c[5])));
                 break;
             case "deadline":
-                list.add(new Deadline(c[1], new DukeDate(c[2], c[3], c[4], c[5])));
+                list.addTask(new Deadline(c[1], new DukeDate(c[2], c[3], c[4], c[5])));
                 break;
         }
         ui.printLast(list);

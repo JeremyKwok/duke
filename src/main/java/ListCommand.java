@@ -5,7 +5,7 @@ public class ListCommand extends Command {
 
 
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         ui.printList(list);
     }
 
