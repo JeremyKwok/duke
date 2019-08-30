@@ -28,7 +28,10 @@ public class Parser {
                 throw new DukeException("☹ OOPS!!! I'm sorry, but the task must be specified with a number.");
             }
         }
-        if (!c[0].equals("todo") && !c[0].equals("deadline") && !c[0].equals("event")) {
+
+        if (c[0].equals("find")) {
+            return new FindCommand(c);
+        } else if (!c[0].equals("todo") && !c[0].equals("deadline") && !c[0].equals("event")) {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means."
                     + "Please enter a command and description :-(");
         }

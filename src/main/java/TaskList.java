@@ -34,4 +34,14 @@ public class TaskList implements Serializable {
         return list.get(index);
     }
 
+    public TaskList find(String keyword) throws DukeException {
+        TaskList filteredList = new TaskList();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).description.contains(keyword)) {
+                filteredList.addTask(list.get(i));
+            }
+        }
+        return filteredList;
+    }
+
 }
