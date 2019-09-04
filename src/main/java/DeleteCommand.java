@@ -1,17 +1,17 @@
 import java.util.ArrayList;
 
 public class DeleteCommand extends Command {
-    private String[] c;
+    private String[] cmdString;
 
     public DeleteCommand(String[] c) {
-        this.c = c;
+        this.cmdString = c;
     }
 
 
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         try {
-            int num = Integer.parseInt(c[1]);
+            int num = Integer.parseInt(cmdString[1]);
             ui.printMessage("Noted. I've removed this task:");
             num -= 1;
             if (num < 0 || num >= list.getSize()) {

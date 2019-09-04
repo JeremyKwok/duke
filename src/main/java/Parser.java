@@ -11,8 +11,7 @@ public class Parser {
             return new ExitCommand();
         } else if (fullCommand.equals("todo") || fullCommand.equals("event") || fullCommand.equals("deadline")) {
             throw new DukeException("☹ OOPS!!! The description of a " + fullCommand + " cannot be empty.");
-        }
-        else {
+        } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means."
                     + "Please enter a command and description :-(");
         }
@@ -52,7 +51,8 @@ public class Parser {
             throw new DukeException("☹ OOPS!!! The description of a " + c[0] + " cannot be empty.");
         }
         String[] dParts = {};
-        String time = "", dt = "";
+        String time = "";
+        String dt = "";
         if (c[2].indexOf(" ") > -1) {
             time = c[2].split(" ", 2)[1].strip();
             dt = c[2].split(" ", 2)[0].strip();
@@ -74,9 +74,11 @@ public class Parser {
         }
         return new AddCommand(c);
     }
+
     public static boolean validateDate(String[] dParts, String time) {
         String time2;
-        int timeValue, time2Value;
+        int timeValue;
+        int time2Value;
         if (time.indexOf("-") > -1) {
             time2 = time.split("-",2)[1];
             time = time.split("-", 2) [0];
@@ -87,7 +89,7 @@ public class Parser {
             } else if (time2Value % 100 > 60 || time2Value < 0 || time2Value > 2360) {
                 return false;
             }
-        }else {
+        } else {
             timeValue = Integer.parseInt(time);
             if (timeValue % 100 > 60 || timeValue < 0 || timeValue > 2360) {
                 return false;
@@ -113,9 +115,10 @@ public class Parser {
         return true;
     }
 
-    public static String getTime (String time) {
+    public static String getTime(String time) {
         String time2 = "";
-        int timeValue, time2Value;
+        int timeValue;
+        int time2Value;
         if (time.indexOf("-") > -1) {
             time2 = time.split("-",2)[1];
             time = time.split("-", 2) [0];
@@ -145,8 +148,7 @@ public class Parser {
                 s = Integer.toString(timeValue / 100);
             }
             s += "pm";
-        }
-        else if (timeValue < 2360) {
+        } else if (timeValue < 2360) {
             // pm case
             timeValue -= 1200;
             if (timeValue / 100 != 0) {
@@ -162,8 +164,8 @@ public class Parser {
     public static String convertMonth(String s) {
         int monthValue = Integer.parseInt(s);
         String[] months = new String[]{"January", "Febuary", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"};
-        return months[monthValue-1];
+                                       "July", "August", "September", "October", "November", "December"};
+        return months[monthValue - 1];
     }
 
     public static String convertDay(String s) {

@@ -5,7 +5,7 @@ public class Ui {
 
     Scanner in;
 
-    public Ui () {
+    public Ui() {
         in = new Scanner(System.in);
     }
 
@@ -25,14 +25,14 @@ public class Ui {
     public void printList(TaskList list) {
         System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < list.getSize(); i++) {
-            System.out.println("     " + (i+1) + "." + list.at(i).toString());
+            System.out.println("     " + (i + 1) + "." + list.at(i).toString());
         }
     }
 
     public static void printLast(TaskList list) {
         printMessage("Got it. I've added this task:");
         int n = list.getSize();
-        printMessage(" " + list.at(n-1).toString());
+        printMessage(" " + list.at(n - 1).toString());
         printMessage("Now you have " + Integer.toString(n) + " tasks in the list.");
     }
 
@@ -57,6 +57,7 @@ public class Ui {
         printMessage("What can I do for you?");
         printLinebreak();
     }
+
     public void showLine() {
         printLinebreak();
     }

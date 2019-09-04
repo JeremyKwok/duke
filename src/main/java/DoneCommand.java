@@ -1,16 +1,16 @@
 import java.util.ArrayList;
 
 public class DoneCommand extends Command {
-    private String[] c;
+    private String[] cmdString;
 
-    public DoneCommand (String[] c) {
-        this.c = c;
+    public DoneCommand(String[] c) {
+        this.cmdString = c;
     }
 
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         try {
-            int num = Integer.parseInt(c[1]);
+            int num = Integer.parseInt(cmdString[1]);
             ui.printMessage("Nice! I've marked this task as done:");
             num -= 1;
             if (num < 0 || num >= list.getSize()) {
