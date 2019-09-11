@@ -1,5 +1,10 @@
-import java.util.ArrayList;
+package seedu.duke;
 
+/**
+ * Represents a Command to delete Tasks from the Task list. A <code>DeleteCommand</code> object corresponds to
+ * a command represented by a string.
+ * e.g., <code>"delete 1"</code>
+ */
 public class DeleteCommand extends Command {
     private String[] cmdString;
 

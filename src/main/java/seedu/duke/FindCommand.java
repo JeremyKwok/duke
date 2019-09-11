@@ -1,5 +1,9 @@
 package seedu.duke;
-
+/**
+ * Represents a Command to find Tasks in the Task list. A <code>FindCommand</code> object corresponds to
+ * a command represented by a string.
+ * e.g., <code>"find submit"</code>
+ */
 public class FindCommand extends Command {
     private String[] cmdString;
 

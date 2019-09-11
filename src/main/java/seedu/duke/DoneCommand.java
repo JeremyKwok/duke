@@ -1,5 +1,9 @@
-import java.util.ArrayList;
-
+package seedu.duke;
+/**
+ * Represents a Command to mark Tasks as done in the Task list. A <code>DoneCommand</code> object corresponds to
+ * a command represented by a string.
+ * e.g., <code>"deadline submit assignment /by  11/9/2019 2359"</code>
+ */
 public class DoneCommand extends Command {
     private String[] cmdString;
 
