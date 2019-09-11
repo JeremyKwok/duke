@@ -1,5 +1,6 @@
+package seedu.duke;
+
 import java.io.*;
-import java.util.ArrayList;
 
 public class Storage {
 

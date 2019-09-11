@@ -1,3 +1,5 @@
+package seedu.duke;
+
 public class FindCommand extends Command {
     private String[] cmdString;
 

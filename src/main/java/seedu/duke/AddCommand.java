@@ -22,7 +22,7 @@ public class AddCommand extends Command {
                     cmdString[4], cmdString[5])));
             break;
         default:
-            throw new DukeException("Unable to add task of type " + cmdString[0] + ".");
+            throw new DukeException("Unable to add task of type " + cmdString[0] + "");
         }
         ui.printLast(list);
         storage.saveData(list);

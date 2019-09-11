@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+package seedu.duke;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -25,7 +26,7 @@ public class Ui {
     public void printList(TaskList list) {
         System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < list.getSize(); i++) {
-            System.out.println("     " + (i + 1) + "." + list.at(i).toString());
+            System.out.println("     " + (i + 1) + "" + list.at(i).toString());
         }
     }
 

@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+package seedu.duke;
 
 public class ListCommand extends Command {
 

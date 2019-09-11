@@ -1,3 +1,5 @@
+package seedu.duke;
+
 import java.io.Serializable;
 
 public class Task implements Serializable {

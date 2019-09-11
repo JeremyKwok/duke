@@ -1,3 +1,5 @@
+package seedu.duke;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 

@@ -1,8 +1,4 @@
-import java.util.Scanner;
-
-import java.util.ArrayList;
-import java.util.regex.PatternSyntaxException;
-
+package seedu.duke;
 
 
 public class Duke {
@@ -42,6 +38,6 @@ public class Duke {
         }
     }
     public static void main(String[] args) {
-        new Duke("../../../data").run();
+        new Duke("data").run();
     }
 }

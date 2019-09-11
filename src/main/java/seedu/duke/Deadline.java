@@ -1,3 +1,5 @@
+package seedu.duke;
+
 public class Deadline extends Task {
 
     protected DukeDate by;
